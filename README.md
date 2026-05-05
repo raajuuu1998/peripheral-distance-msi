@@ -24,7 +24,7 @@ MSI-H colorectal tumors show a well-known spatial pattern: dense lymphocytic inf
 
 ## Pipeline
 
-![Pipeline](figures/pipeline.png)
+![Pipeline](X.png)
 
 *Tile features extracted by UNI2-h or Virchow2 are augmented with the peripheral distance scalar and aggregated using TransMIL for simultaneous MSI, MSS, and hypermutation prediction.*
 
@@ -66,13 +66,13 @@ The attention maps show how peripheral distance encoding shifts model focus towa
 
 ### MSI-H Slide (TCGA-A6-2672)
 
-![Attention MSI-H](figures/attn_msih.png)
+![Attention MSI-H](X2.png)
 
 *Left: baseline TransMIL — attention distributed broadly across tissue interior. Right: TransMIL + PD — attention concentrated toward the slide boundary, consistent with the Crohn's-like lymphocytic reaction at the invasive margin.*
 
 ### MSS Slide (TCGA-A6-2677)
 
-![Attention MSS](figures/attn_mss.png)
+![Attention MSS](X3.png)
 
 *Both configurations produce diffuse attention with no peripheral concentration, consistent with the absence of peritumoral immune infiltrate in microsatellite stable tumors.*
 
