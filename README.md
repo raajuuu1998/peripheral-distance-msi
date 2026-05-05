@@ -8,15 +8,20 @@
 </p>
 
 <p align="center">
-  <b>Dasari Naga Raju</b><br>
-  <i>COMPAYL Workshop @ MICCAI 2026</i>
+  <b>Dasari Naga Raju</b>
 </p>
+
+> **TL;DR** — A single scalar encoding each tile's distance to the slide boundary, injected into TransMIL before self-attention, raises cross-site MSS specificity from 0.939 to **1.000** on an external cohort — zero false positives across 49 MSS cases, no target-domain retraining.
 
 ---
 
 ## Abstract
 
-Predicting microsatellite instability (MSI) status from routine H&E whole slide images offers a practical alternative to molecular testing, but models trained at one institution generalize poorly to slides from a different site. We investigate whether tile-level spatial priors derived from known MSI histology can guide foundation model representations toward more site-invariant features. We introduce **peripheral distance encoding**, reflecting the characteristic Crohn's-like peripheral lymphocytic reaction at the tumor invasive margin, and evaluate a secondary **local immune neighborhood encoding** reflecting the lymphocyte-to-tumor ratio in each tile's spatial neighborhood. Both priors are injected into a TransMIL aggregator before self-attention. Training on TCGA-COAD (137 slides) and evaluating externally on TCGA-READ (50 slides) without retraining, peripheral distance encoding achieves MSI AUC **0.959 ± 0.012** on COAD and MSS specificity **1.000** on READ — zero false positives across all 49 MSS cases.
+Predicting MSI status from routine H&E whole slide images offers a practical alternative to molecular testing, but models trained at one institution fail when applied to slides from a different site. Foundation models encode site-specific staining patterns alongside the real biological signal, causing cross-site specificity to collapse.
+
+We ask a simple question: MSI-H tumors have a well-characterized spatial biology — dense lymphocytic infiltration at the tumor invasive margin, known as the Crohn's-like reaction. This pattern is conserved across institutions and scanners. Can encoding it explicitly as a tile-level prior guide foundation model representations toward more site-invariant features?
+
+We introduce **peripheral distance encoding** — a scalar prior capturing each tile's proximity to the slide boundary — injected into TransMIL before self-attention. We also evaluate a secondary **local immune neighborhood encoding** capturing the lymphocyte-to-tumor ratio in each tile's spatial neighborhood. Training on TCGA-COAD (137 slides) and evaluating on TCGA-READ (50 slides) without any target-domain retraining, peripheral distance encoding raises MSS specificity from 0.939 to **1.000** — zero false positives across all 49 MSS cases.
 
 ---
 
@@ -27,24 +32,6 @@ Predicting microsatellite instability (MSI) status from routine H&E whole slide 
 </p>
 
 *Tile features extracted by UNI2-h or Virchow2 are augmented with the peripheral distance scalar and aggregated using TransMIL for simultaneous MSI, MSS, and hypermutation prediction. The peripheral distance prior encodes each tile's proximity to the slide boundary as a geometric proxy for the tumor invasive margin — where the Crohn's-like lymphocytic reaction is spatially concentrated in MSI-H tissue.*
-
----
-
-## Attention Maps
-
-The figures below show how peripheral distance encoding shifts model attention toward the tumor invasive margin in MSI-H slides, while producing diffuse suppression in MSS slides — consistent with a biologically informed inductive bias rather than a generic boundary detector.
-
-<p align="center">
-  <img src="X2.png" width="90%" alt="Attention Maps MSI-H"/>
-</p>
-
-*MSI-H slide (TCGA-A6-2672). Left: baseline TransMIL distributes attention broadly across the tissue interior. Right: TransMIL + PD concentrates attention toward the tissue boundary, spatially concordant with the Crohn's-like reaction at the invasive margin.*
-
-<p align="center">
-  <img src="X3.png" width="90%" alt="Attention Maps MSS"/>
-</p>
-
-*MSS slide (TCGA-A6-2677). Both configurations produce diffuse attention with no peripheral concentration, consistent with the absence of peritumoral immune infiltrate in microsatellite stable tumors.*
 
 ---
 
@@ -76,6 +63,24 @@ The figures below show how peripheral distance encoding shifts model attention t
 > **PD** = Peripheral Distance encoding | **LIN** = Local Immune Neighborhood encoding
 >
 > Training: TCGA-COAD (137 slides, 5-fold CV) | External validation: TCGA-READ (50 slides, no target-domain retraining)
+
+---
+
+## Attention Maps
+
+The figures below show how peripheral distance encoding shifts model attention toward the tumor invasive margin in MSI-H slides, while producing diffuse suppression in MSS slides — consistent with a biologically informed inductive bias rather than a generic boundary detector.
+
+<p align="center">
+  <img src="X2.png" width="90%" alt="Attention Maps MSI-H"/>
+</p>
+
+*MSI-H slide (TCGA-A6-2672). Left: baseline TransMIL distributes attention broadly across the tissue interior. Right: TransMIL + PD concentrates attention toward the tissue boundary, spatially concordant with the Crohn's-like reaction at the invasive margin.*
+
+<p align="center">
+  <img src="X3.png" width="90%" alt="Attention Maps MSS"/>
+</p>
+
+*MSS slide (TCGA-A6-2677). Both configurations produce diffuse attention with no peripheral concentration, consistent with the absence of peritumoral immune infiltrate in microsatellite stable tumors.*
 
 ---
 
