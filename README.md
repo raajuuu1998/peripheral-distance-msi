@@ -1,4 +1,4 @@
-# Biological Spatial Priors for Cross-Site MSI Generalization
+# Biological Spatial Priors Regularize Foundation Model Representations for Cross-Site MSI Generalization in Colorectal Cancer
 
 <p align="center">
   <a href="https://arxiv.org/abs/2605.02660"><img src="https://img.shields.io/badge/arXiv-2605.02660-b31b1b.svg" alt="arXiv"/></a>
