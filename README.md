@@ -71,7 +71,7 @@ We introduce **peripheral distance encoding** — a scalar prior capturing each 
 The figures below show how peripheral distance encoding shifts model attention toward the tumor invasive margin in MSI-H slides, while producing diffuse suppression in MSS slides — consistent with a biologically informed inductive bias rather than a generic boundary detector.
 
 <p align="center">
-  <img src="AttensionMap_MSI" width="90%" alt="Attention Maps MSI-H"/>
+  <img src="AttensionMap_MSI.png" width="90%" alt="Attention Maps MSI-H"/>
 </p>
 
 *MSI-H slide (TCGA-A6-2672). Left: baseline TransMIL distributes attention broadly across the tissue interior. Right: TransMIL + PD concentrates attention toward the tissue boundary, spatially concordant with the Crohn's-like reaction at the invasive margin.*
