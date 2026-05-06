@@ -28,7 +28,7 @@ We introduce **peripheral distance encoding** — a scalar prior capturing each 
 ## Method
 
 <p align="center">
-  <img src="X.png" width="85%" alt="Pipeline"/>
+  <img src="transMIL+PD.png" width="85%" alt="Pipeline"/>
 </p>
 
 *Tile features extracted by UNI2-h or Virchow2 are augmented with the peripheral distance scalar and aggregated using TransMIL for simultaneous MSI, MSS, and hypermutation prediction. The peripheral distance prior encodes each tile's proximity to the slide boundary as a geometric proxy for the tumor invasive margin — where the Crohn's-like lymphocytic reaction is spatially concentrated in MSI-H tissue.*
@@ -71,13 +71,13 @@ We introduce **peripheral distance encoding** — a scalar prior capturing each 
 The figures below show how peripheral distance encoding shifts model attention toward the tumor invasive margin in MSI-H slides, while producing diffuse suppression in MSS slides — consistent with a biologically informed inductive bias rather than a generic boundary detector.
 
 <p align="center">
-  <img src="X2.png" width="90%" alt="Attention Maps MSI-H"/>
+  <img src="AttensionMap_MSI" width="90%" alt="Attention Maps MSI-H"/>
 </p>
 
 *MSI-H slide (TCGA-A6-2672). Left: baseline TransMIL distributes attention broadly across the tissue interior. Right: TransMIL + PD concentrates attention toward the tissue boundary, spatially concordant with the Crohn's-like reaction at the invasive margin.*
 
 <p align="center">
-  <img src="X3.png" width="90%" alt="Attention Maps MSS"/>
+  <img src="AttensionMap_MSS.png" width="90%" alt="Attention Maps MSS"/>
 </p>
 
 *MSS slide (TCGA-A6-2677). Both configurations produce diffuse attention with no peripheral concentration, consistent with the absence of peritumoral immune infiltrate in microsatellite stable tumors.*
